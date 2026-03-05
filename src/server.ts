@@ -23,7 +23,17 @@ const notifyHandler = Effect.gen(function* () {
   yield* manager.schedule(body.session_id, body.title, body.message)
 
   return yield* HttpServerResponse.json({ status: "scheduled", session_id: body.session_id })
-})
+}).pipe(
+  Effect.catchTag("ParseError", (e) =>
+    Effect.gen(function* () {
+      yield* Effect.logWarning("Invalid /notify request", { error: e.message })
+      return yield* HttpServerResponse.json(
+        { status: "error", message: e.message },
+        { status: 400 },
+      )
+    }),
+  ),
+)
 
 const activityHandler = Effect.gen(function* () {
   const body = yield* HttpServerRequest.schemaBodyJson(ActivityBody)
@@ -32,7 +42,17 @@ const activityHandler = Effect.gen(function* () {
   yield* manager.cancel(body.session_id)
 
   return yield* HttpServerResponse.json({ status: "cancelled", session_id: body.session_id })
-})
+}).pipe(
+  Effect.catchTag("ParseError", (e) =>
+    Effect.gen(function* () {
+      yield* Effect.logWarning("Invalid /activity request", { error: e.message })
+      return yield* HttpServerResponse.json(
+        { status: "error", message: e.message },
+        { status: 400 },
+      )
+    }),
+  ),
+)
 
 export const router = HttpRouter.empty.pipe(
   HttpRouter.post("/notify", notifyHandler),
