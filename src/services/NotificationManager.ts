@@ -15,6 +15,7 @@ export class NotificationManager extends Context.Tag("NotificationManager")<
       message: string,
     ) => Effect.Effect<void, PushoverError>
     readonly cancel: (sessionId: string) => Effect.Effect<void>
+    readonly toggle: () => Effect.Effect<boolean, PushoverError>
   }
 >() {}
 
@@ -24,6 +25,7 @@ export const NotificationManagerLive = Layer.effect(
     const pushover = yield* Pushover
     const delay = yield* TimerDelay
     const timers = yield* Ref.make(HashMap.empty<string, Fiber.RuntimeFiber<void, PushoverError>>())
+    const enabled = yield* Ref.make(true)
 
     return {
       schedule: (sessionId, title, message) =>
@@ -31,6 +33,11 @@ export const NotificationManagerLive = Layer.effect(
           const fiber = yield* Effect.sleep(delay).pipe(
             Effect.andThen(
               Effect.gen(function* () {
+                const isEnabled = yield* Ref.get(enabled)
+                if (!isEnabled) {
+                  yield* Effect.log("Notifications disabled, skipping", { sessionId, title })
+                  return
+                }
                 yield* Effect.log("Timer expired, sending notification", {
                   sessionId,
                   title,
@@ -75,6 +82,20 @@ export const NotificationManagerLive = Layer.effect(
             yield* Fiber.interrupt(existing.value)
             yield* Effect.log("Timer cancelled", { sessionId })
           }
+        }),
+
+      toggle: () =>
+        Effect.gen(function* () {
+          const next = yield* Ref.updateAndGet(enabled, (v) => !v)
+          const status = next ? "enabled" : "disabled"
+          yield* pushover.send({
+            title: "cc-notify",
+            message: `Notifications ${status}`,
+          }).pipe(
+            Effect.tapError(() => Ref.set(enabled, !next)),
+          )
+          yield* Effect.log("Notifications toggled", { enabled: next })
+          return next
         }),
     }
   }),

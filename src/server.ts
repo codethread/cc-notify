@@ -35,6 +35,22 @@ const notifyHandler = Effect.gen(function* () {
   ),
 )
 
+const toggleHandler = Effect.gen(function* () {
+  const manager = yield* NotificationManager
+  const enabled = yield* manager.toggle()
+  return yield* HttpServerResponse.json({ status: enabled ? "enabled" : "disabled" })
+}).pipe(
+  Effect.catchTag("PushoverError", (e) =>
+    Effect.gen(function* () {
+      yield* Effect.logWarning("Toggle notification failed", { error: e.reason })
+      return yield* HttpServerResponse.json(
+        { status: "error", message: e.reason },
+        { status: 502 },
+      )
+    }),
+  ),
+)
+
 const activityHandler = Effect.gen(function* () {
   const body = yield* HttpServerRequest.schemaBodyJson(ActivityBody)
   const manager = yield* NotificationManager
@@ -57,5 +73,6 @@ const activityHandler = Effect.gen(function* () {
 export const router = HttpRouter.empty.pipe(
   HttpRouter.post("/notify", notifyHandler),
   HttpRouter.post("/activity", activityHandler),
+  HttpRouter.get("/toggle", toggleHandler),
   HttpRouter.get("/health", HttpServerResponse.text("ok")),
 )
