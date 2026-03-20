@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 import { basename } from "path";
 import { log, readStdin, getPort, httpPost, exec } from "./lib.js";
 
@@ -11,9 +11,12 @@ if (!port) {
 
 const tmuxPane = process.env.TMUX_PANE;
 if (tmuxPane) {
-  const active = exec(`tmux display-message -p -t "${tmuxPane}" "#{pane_active}"`);
-  if (active === "1") {
-    log(TAG, `pane ${tmuxPane} is focused, skipping`);
+  // pane_active = selected pane in window, window_active = foreground window in client
+  const active = exec(
+    `tmux display-message -p -t "${tmuxPane}" "#{pane_active}#{window_active}"`,
+  );
+  if (active === "11") {
+    log(TAG, `pane ${tmuxPane} is focused and window active, skipping`);
     process.exit(0);
   }
 }

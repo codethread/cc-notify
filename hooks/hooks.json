@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.js\""
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/scripts/session-start.js\""
           }
         ]
       }
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.js\""
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.js\""
           }
         ]
       }
@@ -25,7 +25,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.js\""
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/scripts/notify.js\""
           }
         ]
       }
@@ -36,7 +36,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/activity.js\""
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/scripts/activity.js\""
           }
         ]
       }
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.js\""
+            "command": "bun \"${CLAUDE_PLUGIN_ROOT}/scripts/session-end.js\""
           }
         ]
       }

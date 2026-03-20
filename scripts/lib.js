@@ -45,7 +45,7 @@ export function httpPost(port, path, body) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Content-Length": data.length,
+          "Content-Length": Buffer.byteLength(data),
         },
       },
       (res) => resolve(res.statusCode),

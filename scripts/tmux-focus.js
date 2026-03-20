@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { log, getPort, getStateDir, httpPost, exec } from "./lib.js";

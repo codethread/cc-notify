@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 import { log, readStdin, getPort, httpPost } from "./lib.js";
 
 const TAG = "activity";

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bun
 import { readFileSync, writeFileSync, copyFileSync, existsSync } from "fs";
 import { dirname, basename, join } from "path";
 import { homedir } from "os";
