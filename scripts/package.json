@@ -1,0 +1,8 @@
+{
+  "name": "cc-notify-hooks",
+  "version": "1.2.3",
+  "type": "module",
+  "bin": {
+    "cc-notify__tmux-focus": "./tmux-focus.js"
+  }
+}

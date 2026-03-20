@@ -24,9 +24,14 @@ This repo is also a Claude Code plugin (marketplace + plugin in one repo).
 
 - `.claude-plugin/plugin.json` — plugin manifest
 - `.claude-plugin/marketplace.json` — marketplace catalog
-- `hooks/hooks.json` — hook definitions (Stop, PermissionRequest, UserPromptSubmit, SessionEnd)
-- `scripts/notify.sh` — sends notification to cc-notify server
-- `scripts/activity.sh` — cancels pending notification on user activity
+- `hooks/hooks.json` — hook definitions (SessionStart, Stop, PermissionRequest, UserPromptSubmit, SessionEnd)
+- `scripts/lib.js` — shared helpers (logging, HTTP, port/state discovery)
+- `scripts/notify.js` — sends notification (skips if terminal pane is focused)
+- `scripts/activity.js` — cancels pending notification on user activity
+- `scripts/session-start.js` — copies focus scripts to plugin data dir, writes pane mapping
+- `scripts/session-end.js` — cancels notification + cleans up focus state file
+- `scripts/tmux-focus.js` — cancels notification on tmux pane focus
+- Hook debug logs: `$XDG_STATE_HOME/cc-notify/debug.log`
 
 Consumers reference via `extraKnownMarketplaces` pointing to `codethread/cc-notify`.
 
@@ -34,3 +39,4 @@ Consumers reference via `extraKnownMarketplaces` pointing to `codethread/cc-noti
 
 - [docs/overview.md](docs/overview.md) — project purpose and usage
 - [docs/api-design.md](docs/api-design.md) — endpoint specs
+- [docs/focus-tracking.md](docs/focus-tracking.md) — focus-aware notification suppression
