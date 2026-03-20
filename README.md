@@ -9,7 +9,26 @@ Local notification filter for AI coding tools. Debounces notifications so you on
 3. If activity is detected on that session within 60s, the notification is cancelled
 4. If the timer expires with no activity, a push notification is sent via [Pushover](https://pushover.net)
 
-## Setup
+## Claude Code Plugin
+
+This repo doubles as a Claude Code plugin. Once enabled, it automatically hooks into Stop, PermissionRequest, UserPromptSubmit, and SessionEnd events — no manual hook configuration needed.
+
+Add to your `settings.json`:
+
+```json
+{
+  "extraKnownMarketplaces": {
+    "cc-notify-marketplace": {
+      "source": { "source": "github", "repo": "codethread/cc-notify" }
+    }
+  },
+  "enabledPlugins": {
+    "cc-notify@cc-notify-marketplace": true
+  }
+}
+```
+
+## Server Setup
 
 Requires [Bun](https://bun.sh) and a [Pushover](https://pushover.net) account.
 

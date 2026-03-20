@@ -18,6 +18,18 @@ Local notification filter service. Bun + Effect.ts.
 - `src/services/` — `Pushover`, `NotificationManager`, `PortFinder`
 - `src/config.ts` — config schema
 
+## Claude Code Plugin
+
+This repo is also a Claude Code plugin (marketplace + plugin in one repo).
+
+- `.claude-plugin/plugin.json` — plugin manifest
+- `.claude-plugin/marketplace.json` — marketplace catalog
+- `hooks/hooks.json` — hook definitions (Stop, PermissionRequest, UserPromptSubmit, SessionEnd)
+- `scripts/notify.sh` — sends notification to cc-notify server
+- `scripts/activity.sh` — cancels pending notification on user activity
+
+Consumers reference via `extraKnownMarketplaces` pointing to `codethread/cc-notify`.
+
 ## Docs
 
 - [docs/overview.md](docs/overview.md) — project purpose and usage

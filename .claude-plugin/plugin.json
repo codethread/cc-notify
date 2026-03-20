@@ -1,0 +1,11 @@
+{
+  "name": "cc-notify",
+  "description": "Push notifications for Claude Code via cc-notify server (Stop, PermissionRequest, activity tracking)",
+  "version": "1.0.0",
+  "author": {
+    "name": "codethread"
+  },
+  "repository": "https://github.com/codethread/cc-notify",
+  "license": "MIT",
+  "hooks": "./hooks/hooks.json"
+}
