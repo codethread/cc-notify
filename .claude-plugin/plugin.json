@@ -6,6 +6,5 @@
     "name": "codethread"
   },
   "repository": "https://github.com/codethread/cc-notify",
-  "license": "MIT",
-  "hooks": "./hooks/hooks.json"
+  "license": "MIT"
 }
