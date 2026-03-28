@@ -54,8 +54,9 @@ State file prefix: `tmux-pane_`
 - Exits early if the pane is active
 
 **tmux pane-focus-in** (`scripts/tmux-focus.js`):
-- Resolves the focused pane ID via `tmux display-message -p '#{pane_id}'`
-- Looks up the state file, reads the session ID, posts `/activity`
+- Lists all panes in the current window via `tmux list-panes`
+- For each pane with a state file, reads the session ID and posts `/activity`
+- This ensures switching between splits in the same window cancels notifications for all visible Claude sessions
 
 **SessionEnd hook** (`scripts/session-end.js`):
 - Posts `/activity` to cancel any pending timer
