@@ -10,7 +10,7 @@ systems:
       - "src"
     target: "notification server"
     spec: "specs/notification-server.md"
-    status: "in_progress"
+    status: "done"
     action: "create"
     code:
       - "src/main.ts"
@@ -18,7 +18,7 @@ systems:
       - "src/config.ts"
       - "src/services/"
     rationale: "Core business logic: Effect.ts HTTP server, timer lifecycle, Pushover integration, port discovery, layer composition"
-    notes: ""
+    notes: "Reverse-specced 2026-04-02. Docs consolidated (overview.md, api-design.md deleted)."
 
   - id: "002"
     domain: "claude-code-plugin"
