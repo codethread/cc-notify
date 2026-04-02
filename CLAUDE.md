@@ -10,14 +10,6 @@ Local notification filter service. Bun + Effect.ts.
 - **Logs**: `.logs/cc-notify.jsonl` (JSONL, append)
 - **Config**: `PUSHOVER_CC_KEY`, `PUSHOVER_DEV_KEY` (env or `.env`)
 
-## Architecture
-
-- Uses Effect.ts throughout — services, layers, config, logging
-- `src/main.ts` — entry point, layer composition
-- `src/server.ts` — HTTP routes (`/notify`, `/activity`, `/health`)
-- `src/services/` — `Pushover`, `NotificationManager`, `PortFinder`
-- `src/config.ts` — config schema
-
 ## Claude Code Plugin
 
 This repo is also a Claude Code plugin (marketplace + plugin in one repo).
@@ -37,6 +29,5 @@ Consumers reference via `extraKnownMarketplaces` pointing to `codethread/cc-noti
 
 ## Docs
 
-- [docs/overview.md](docs/overview.md) — project purpose and usage
-- [docs/api-design.md](docs/api-design.md) — endpoint specs
+- [specs/notification-server.md](specs/notification-server.md) — server architecture, API, services
 - [docs/focus-tracking.md](docs/focus-tracking.md) — focus-aware notification suppression
