@@ -9,3 +9,4 @@ Persistent domain specifications. Organized by system area, not feature chronolo
 | Spec | Code | Purpose |
 |---|---|---|
 | [notification-server.md](./notification-server.md) | `src/` | Effect.ts HTTP server that debounces AI tool notifications via Pushover |
+| [claude-code-plugin.md](./claude-code-plugin.md) | `.claude-plugin/`, `hooks/`, `scripts/` | Hook scripts, focus tracking, plugin distribution for Claude Code |
