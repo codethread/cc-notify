@@ -1,0 +1,38 @@
+version: 1
+generated: "2026-04-02"
+scope: "."
+
+systems:
+  - id: "001"
+    domain: "notification-server"
+    aliases:
+      - "server"
+      - "src"
+    target: "notification server"
+    spec: "specs/notification-server.md"
+    status: "pending"
+    action: "create"
+    code:
+      - "src/main.ts"
+      - "src/server.ts"
+      - "src/config.ts"
+      - "src/services/"
+    rationale: "Core business logic: Effect.ts HTTP server, timer lifecycle, Pushover integration, port discovery, layer composition"
+    notes: ""
+
+  - id: "002"
+    domain: "claude-code-plugin"
+    aliases:
+      - "plugin"
+      - "hooks"
+      - "scripts"
+    target: "claude code plugin"
+    spec: "specs/claude-code-plugin.md"
+    status: "pending"
+    action: "create"
+    code:
+      - ".claude-plugin/"
+      - "hooks/hooks.json"
+      - "scripts/"
+    rationale: "Plugin integration layer: hook scripts, focus tracking, shared lib, plugin manifest and marketplace distribution"
+    notes: ""
