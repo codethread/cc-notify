@@ -72,7 +72,7 @@ All hooks invoke scripts via `bun "${CLAUDE_PLUGIN_ROOT}/scripts/<script>"`. Hoo
 | `scripts/session-start.js` | Script installation to persistent data dir + tmux pane mapping |
 | `scripts/session-end.js` | Timer cancellation + state file cleanup |
 | `scripts/tmux-focus.js` | Pane focus handler — cancels timers for all Claude sessions visible in current window |
-| `scripts/package.json` | Package metadata for installed scripts (`cc-notify-hooks`, v1.3.0, ES module) |
+| `scripts/package.json` | Package metadata (`cc-notify-hooks`, v1.3.0, ES module); `bin` entry exposes `cc-notify__tmux-focus` |
 
 ### Data Flow
 
@@ -156,14 +156,14 @@ ensureDir(dir)          → void        Recursive mkdir
 | Event | Title | Message |
 |---|---|---|
 | Stop | `Done · <project>` | First 120 chars of assistant message (ellipsis if truncated), or `"Claude has finished responding"` |
-| PermissionRequest | `Permission · <project>` | Tool-specific: Bash→command preview, Write/Edit→filename, Read→filename, other→tool name |
+| PermissionRequest | `Permission · <project>` | Tool-specific: Bash→command preview, Write/Edit→filename, Read→filename, other→tool name; falls back to `"Claude is waiting for approval"` if tool name is empty |
 | Default | `Attention · <project>` | `"Claude Code needs you"` |
 
 Project name is `basename(cwd)` from hook payload.
 
 ### Focus Check (`notify.js`)
 
-Before scheduling, if `TMUX_PANE` is set:
+Runs before stdin is parsed. If `TMUX_PANE` is set:
 ```
 tmux display-message -p -t "<pane>" "#{window_active}"
 ```
