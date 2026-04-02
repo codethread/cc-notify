@@ -28,11 +28,11 @@ systems:
       - "scripts"
     target: "claude code plugin"
     spec: "specs/claude-code-plugin.md"
-    status: "in_progress"
+    status: "done"
     action: "create"
     code:
       - ".claude-plugin/"
       - "hooks/hooks.json"
       - "scripts/"
     rationale: "Plugin integration layer: hook scripts, focus tracking, shared lib, plugin manifest and marketplace distribution"
-    notes: ""
+    notes: "Reverse-specced 2026-04-02. Docs consolidated (focus-tracking.md deleted, CLAUDE.md trimmed)."
