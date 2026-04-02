@@ -28,7 +28,7 @@ systems:
       - "scripts"
     target: "claude code plugin"
     spec: "specs/claude-code-plugin.md"
-    status: "pending"
+    status: "in_progress"
     action: "create"
     code:
       - ".claude-plugin/"

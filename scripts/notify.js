@@ -11,12 +11,12 @@ if (!port) {
 
 const tmuxPane = process.env.TMUX_PANE;
 if (tmuxPane) {
-  // pane_active = selected pane in window, window_active = foreground window in client
-  const active = exec(
-    `tmux display-message -p -t "${tmuxPane}" "#{pane_active}#{window_active}"`,
+  const windowActive = exec(
+    `tmux display-message -p -t "${tmuxPane}" "#{window_active}"`,
   );
-  if (active === "11") {
-    log(TAG, `pane ${tmuxPane} is focused and window active, skipping`);
+  log(TAG, `pane=${tmuxPane} window_active=${windowActive}`);
+  if (windowActive === "1") {
+    log(TAG, `window containing pane ${tmuxPane} is active, skipping`);
     process.exit(0);
   }
 }

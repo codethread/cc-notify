@@ -1,7 +1,7 @@
 {
   "name": "cc-notify",
   "description": "Push notifications for Claude Code via cc-notify server (Stop, PermissionRequest, activity tracking)",
-  "version": "1.2.3",
+  "version": "1.3.0",
   "author": {
     "name": "codethread"
   },

@@ -10,7 +10,7 @@ Local notification filter for AI coding tools. Debounces notifications so you on
 4. If the terminal pane is focused (or regains focus), the notification is suppressed
 5. If the timer expires with no activity or focus, a push notification is sent via [Pushover](https://pushover.net)
 
-Focus tracking currently supports tmux, with the design open to other terminals. See [docs/focus-tracking.md](docs/focus-tracking.md) for details.
+Focus tracking currently supports tmux, with the design open to other terminals. See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for details.
 
 ## Claude Code Plugin
 
@@ -37,7 +37,7 @@ For tmux focus tracking, add this to your `tmux.conf`:
 set-hook -g pane-focus-in 'run-shell "~/.claude/plugins/data/cc-notify-cc-notify-marketplace/tmux-focus.js"'
 ```
 
-See [docs/focus-tracking.md](docs/focus-tracking.md) for how this works.
+See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for how this works.
 
 ## Server Setup
 

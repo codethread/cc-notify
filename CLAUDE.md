@@ -12,22 +12,11 @@ Local notification filter service. Bun + Effect.ts.
 
 ## Claude Code Plugin
 
-This repo is also a Claude Code plugin (marketplace + plugin in one repo).
+This repo is also a Claude Code plugin. See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for architecture.
 
-- `.claude-plugin/plugin.json` — plugin manifest
-- `.claude-plugin/marketplace.json` — marketplace catalog
-- `hooks/hooks.json` — hook definitions (SessionStart, Stop, PermissionRequest, UserPromptSubmit, SessionEnd)
-- `scripts/lib.js` — shared helpers (logging, HTTP, port/state discovery)
-- `scripts/notify.js` — sends notification (skips if terminal pane is focused)
-- `scripts/activity.js` — cancels pending notification on user activity
-- `scripts/session-start.js` — copies focus scripts to plugin data dir, writes pane mapping
-- `scripts/session-end.js` — cancels notification + cleans up focus state file
-- `scripts/tmux-focus.js` — cancels notification on tmux pane focus
 - Hook debug logs: `$XDG_STATE_HOME/cc-notify/debug.log`
-
-Consumers reference via `extraKnownMarketplaces` pointing to `codethread/cc-notify`.
 
 ## Docs
 
 - [specs/notification-server.md](specs/notification-server.md) — server architecture, API, services
-- [docs/focus-tracking.md](docs/focus-tracking.md) — focus-aware notification suppression
+- [specs/claude-code-plugin.md](specs/claude-code-plugin.md) — hook scripts, focus tracking, plugin distribution
