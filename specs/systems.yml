@@ -10,7 +10,7 @@ systems:
       - "src"
     target: "notification server"
     spec: "specs/notification-server.md"
-    status: "pending"
+    status: "in_progress"
     action: "create"
     code:
       - "src/main.ts"
