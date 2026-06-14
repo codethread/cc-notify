@@ -13,6 +13,7 @@ export class NotificationManager extends Context.Tag("NotificationManager")<
       sessionId: string,
       title: string,
       message: string,
+      delayOverride?: Duration.Duration,
     ) => Effect.Effect<void, PushoverError>
     readonly cancel: (sessionId: string) => Effect.Effect<void>
     readonly toggle: () => Effect.Effect<boolean, PushoverError>
@@ -28,9 +29,10 @@ export const NotificationManagerLive = Layer.effect(
     const enabled = yield* Ref.make(true)
 
     return {
-      schedule: (sessionId, title, message) =>
+      schedule: (sessionId, title, message, delayOverride) =>
         Effect.gen(function* () {
-          const fiber = yield* Effect.sleep(delay).pipe(
+          const notificationDelay = delayOverride ?? delay
+          const fiber = yield* Effect.sleep(notificationDelay).pipe(
             Effect.andThen(
               Effect.gen(function* () {
                 const isEnabled = yield* Ref.get(enabled)
@@ -68,7 +70,7 @@ export const NotificationManagerLive = Layer.effect(
             yield* Effect.log("Previous timer replaced", { sessionId })
           }
 
-          yield* Effect.log("Timer started", { sessionId, title })
+          yield* Effect.log("Timer started", { sessionId, title, delay: Duration.toMillis(notificationDelay) })
         }),
 
       cancel: (sessionId) =>

@@ -14,6 +14,7 @@ export interface PushoverMessage {
 const PushoverResponse = Schema.Struct({
   status: Schema.Number,
   request: Schema.String,
+  errors: Schema.optional(Schema.Array(Schema.String)),
 })
 
 export class PushoverError extends Schema.TaggedError<PushoverError>()(
@@ -53,8 +54,9 @@ export const PushoverLive = Layer.effect(
         )
 
         if (response.status !== 1) {
+          const details = response.errors === undefined ? "" : `: ${response.errors.join(", ")}`
           return yield* new PushoverError({
-            reason: `Pushover API returned status ${response.status}`,
+            reason: `Pushover API returned status ${response.status}${details}`,
           })
         }
 

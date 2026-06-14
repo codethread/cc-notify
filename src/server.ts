@@ -3,13 +3,14 @@ import {
   HttpServerRequest,
   HttpServerResponse,
 } from "@effect/platform"
-import { Effect, Schema } from "effect"
+import { Duration, Effect, Schema } from "effect"
 import { NotificationManager } from "./services/NotificationManager.ts"
 
 const NotifyBody = Schema.Struct({
   title: Schema.String,
   session_id: Schema.String,
   message: Schema.String,
+  notify_at: Schema.optional(Schema.Number),
 })
 
 const ActivityBody = Schema.Struct({
@@ -20,7 +21,11 @@ const notifyHandler = Effect.gen(function* () {
   const body = yield* HttpServerRequest.schemaBodyJson(NotifyBody)
   const manager = yield* NotificationManager
 
-  yield* manager.schedule(body.session_id, body.title, body.message)
+  const delay = body.notify_at === undefined
+    ? undefined
+    : Duration.millis(Math.max(0, body.notify_at - Date.now()))
+
+  yield* manager.schedule(body.session_id, body.title, body.message, delay)
 
   return yield* HttpServerResponse.json({ status: "scheduled", session_id: body.session_id })
 }).pipe(

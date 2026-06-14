@@ -64,7 +64,7 @@ All endpoints use `http://localhost:<port>`.
 
 | Endpoint | Method | Description |
 |---|---|---|
-| `/notify` | POST | Schedule a notification (`title`, `session_id`, `message`) |
+| `/notify` | POST | Schedule a notification (`title`, `session_id`, `message`, optional `notify_at` epoch milliseconds) |
 | `/activity` | POST | Cancel a pending notification (`session_id`) |
 | `/toggle` | GET | Toggle notifications on/off |
 | `/health` | GET | Health check |
@@ -78,6 +78,10 @@ PORT=$(cat "$XDG_RUNTIME_DIR/cc-notify.port")
 curl -X POST "http://localhost:$PORT/notify" \
   -H 'Content-Type: application/json' \
   -d '{"title": "Task done", "session_id": "abc", "message": "Build complete"}'
+
+# schedule for a specific time from the CLI
+echo "Build complete" | cc-notify --after 4h "Task done"
+echo "Build complete" | cc-notify --at "2026-06-14 17:30" "Task done"
 
 # cancel it (user is active)
 curl -X POST "http://localhost:$PORT/activity" \

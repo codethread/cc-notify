@@ -3,6 +3,9 @@
   "module": "src/main.ts",
   "type": "module",
   "private": true,
+  "bin": {
+    "cc-notify": "./scripts/cc-notify.js"
+  },
   "scripts": {
     "start": "bun run src/main.ts",
     "dev": "bun --watch src/main.ts",

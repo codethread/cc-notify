@@ -78,7 +78,7 @@ PushoverConfig = {
 
 ```typescript
 // src/server.ts
-NotifyBody   = Schema.Struct({ title: Schema.String, session_id: Schema.String, message: Schema.String })
+NotifyBody   = Schema.Struct({ title: Schema.String, session_id: Schema.String, message: Schema.String, notify_at: Schema.optional(Schema.Number) })
 ActivityBody = Schema.Struct({ session_id: Schema.String })
 ```
 
@@ -112,7 +112,7 @@ enabled: Ref<boolean>  // starts true
 
 | Route | Method | Request | Success Response | Error Response |
 |---|---|---|---|---|
-| `/notify` | POST | `{ title, session_id, message }` | 200 `{ status: "scheduled", session_id }` | 400 `{ status: "error", message }` |
+| `/notify` | POST | `{ title, session_id, message, notify_at? }` | 200 `{ status: "scheduled", session_id }` | 400 `{ status: "error", message }` |
 | `/activity` | POST | `{ session_id }` | 200 `{ status: "cancelled", session_id }` | 400 `{ status: "error", message }` |
 | `/toggle` | GET | — | 200 `{ status: "enabled" \| "disabled" }` | 502 `{ status: "error", message }` |
 | `/health` | GET | — | 200 `"ok"` (text/plain) | — |
