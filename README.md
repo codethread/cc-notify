@@ -56,7 +56,7 @@ Start the server:
 bun run src/main.ts
 ```
 
-The server picks an available port starting at 7777 and writes it to `$XDG_RUNTIME_DIR/cc-notify.port` for service discovery.
+The server picks an available port starting at 7777 and writes it to `$XDG_STATE_HOME/cc-notify/port` for service discovery (falling back to `~/.local/state/cc-notify/port`).
 
 ## API
 
@@ -72,7 +72,7 @@ All endpoints use `http://localhost:<port>`.
 ### Example
 
 ```sh
-PORT=$(cat "$XDG_RUNTIME_DIR/cc-notify.port")
+PORT=$(cat "${XDG_STATE_HOME:-$HOME/.local/state}/cc-notify/port")
 
 # schedule a notification
 curl -X POST "http://localhost:$PORT/notify" \

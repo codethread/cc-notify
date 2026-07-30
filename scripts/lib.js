@@ -26,9 +26,8 @@ export function readStdin() {
 
 export function getPort() {
   if (process.env.CC_NOTIFY_PORT) return process.env.CC_NOTIFY_PORT;
-  const runtimeDir = process.env.XDG_RUNTIME_DIR || "/tmp";
   try {
-    return readFileSync(join(runtimeDir, "cc-notify.port"), "utf8").trim();
+    return readFileSync(join(getStateDir(), "port"), "utf8").trim();
   } catch {
     return null;
   }

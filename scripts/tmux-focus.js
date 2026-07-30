@@ -4,7 +4,7 @@ import { join } from "path";
 import { log, getPort, getStateDir, httpPost, exec } from "./lib.js";
 
 const TAG = "tmux-focus";
-log(TAG, "v1.3.0 — window-aware");
+log(TAG, "v1.3.1 — window-aware");
 
 const port = getPort();
 if (!port) {

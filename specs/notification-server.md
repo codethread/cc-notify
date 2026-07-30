@@ -56,7 +56,7 @@ Each layer is an Effect Context.Tag. Dependencies flow downward — `ServerLive`
 
 ### Data Flow
 
-1. Client reads port from `$XDG_RUNTIME_DIR/cc-notify.port`
+1. Client reads port from `$XDG_STATE_HOME/cc-notify/port`
 2. `POST /notify` → `NotificationManager.schedule()` → daemon fiber sleeps for delay
 3. `POST /activity` → `NotificationManager.cancel()` → fiber interrupted
 4. Timer expires → checks `enabled` ref → `Pushover.send()` → pushover.net API
@@ -119,7 +119,7 @@ enabled: Ref<boolean>  // starts true
 
 ### Service Discovery
 
-Port written to `$XDG_RUNTIME_DIR/cc-notify.port` (fallback: `/tmp/cc-notify.port`). File removed on shutdown via Effect finalizer.
+Port written to `$XDG_STATE_HOME/cc-notify/port` (fallback: `~/.local/state/cc-notify/port`). File removed on shutdown via Effect finalizer.
 
 ### CLI
 

@@ -33,7 +33,7 @@ Two manifests define the plugin for Claude Code's package system:
 
 | File | Purpose |
 |---|---|
-| `.claude-plugin/plugin.json` | Plugin identity: name (`cc-notify`), version (`1.3.0`), author, repo, license |
+| `.claude-plugin/plugin.json` | Plugin identity: name (`cc-notify`), version (`1.3.1`), author, repo, license |
 | `.claude-plugin/marketplace.json` | Marketplace catalog (`cc-notify-marketplace`) with single local plugin entry |
 
 Consumers enable via `settings.json`:
@@ -72,7 +72,7 @@ All hooks invoke scripts via `bun "${CLAUDE_PLUGIN_ROOT}/scripts/<script>"`. Hoo
 | `scripts/session-start.js` | Script installation to persistent data dir + tmux pane mapping |
 | `scripts/session-end.js` | Timer cancellation + state file cleanup |
 | `scripts/tmux-focus.js` | Pane focus handler — cancels timers for all Claude sessions visible in current window |
-| `scripts/package.json` | Package metadata (`cc-notify-hooks`, v1.3.0, ES module); `bin` entry exposes `cc-notify__tmux-focus` |
+| `scripts/package.json` | Package metadata (`cc-notify-hooks`, v1.3.1, ES module); `bin` entry exposes `cc-notify__tmux-focus` |
 
 ### Data Flow
 
@@ -81,7 +81,7 @@ Claude Code Event
   ↓
 hooks/hooks.json → bun scripts/<handler>.js (stdin = JSON payload)
   ↓
-scripts/lib.js::getPort() → reads $XDG_RUNTIME_DIR/cc-notify.port
+scripts/lib.js::getPort() → reads $XDG_STATE_HOME/cc-notify/port
   ↓
 scripts/lib.js::httpPost(port, path, body) → POST to cc-notify server
 ```
@@ -133,7 +133,6 @@ Data dir is derived from `CLAUDE_PLUGIN_ROOT`: given `.../cache/<marketplace>/<p
 | `CLAUDE_PLUGIN_DATA` | Claude Code (optional) | Override for data dir derivation |
 | `TMUX_PANE` | tmux | Current pane ID (e.g. `%0`) |
 | `XDG_STATE_HOME` | System | State dir base (fallback: `~/.local/state`) |
-| `XDG_RUNTIME_DIR` | System | Runtime dir for port sentinel (fallback: `/tmp`) |
 | `CC_NOTIFY_PORT` | User (testing) | Override port discovery |
 | `CC_NOTIFY_HOST` | User (testing) | Override HTTP host (default: `localhost`) |
 

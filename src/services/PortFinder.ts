@@ -1,11 +1,13 @@
 import { FileSystem } from "@effect/platform"
 import { Context, Effect, Layer } from "effect"
+import { homedir } from "node:os"
 import * as path from "node:path"
 
-const SENTINEL_PATH = path.join(
-  process.env["XDG_RUNTIME_DIR"] ?? "/tmp",
-  "cc-notify.port",
+const STATE_DIR = path.join(
+  process.env["XDG_STATE_HOME"] || path.join(homedir(), ".local", "state"),
+  "cc-notify",
 )
+const SENTINEL_PATH = path.join(STATE_DIR, "port")
 
 const PORT_START = 7777
 const PORT_END = 7800
@@ -36,6 +38,7 @@ export const PortFinderLive = Layer.scoped(
       })
 
       if (available) {
+        yield* fs.makeDirectory(STATE_DIR, { recursive: true })
         yield* fs.writeFileString(SENTINEL_PATH, String(port))
         yield* Effect.log(`Port sentinel written to ${SENTINEL_PATH}`, { port })
 

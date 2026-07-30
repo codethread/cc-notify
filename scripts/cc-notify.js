@@ -2,6 +2,8 @@
 
 import { randomUUID } from "node:crypto"
 import { existsSync, readFileSync } from "node:fs"
+import { homedir } from "node:os"
+import { join } from "node:path"
 import { stdin } from "node:process"
 
 const usage = `Usage: cc-notify [--session-id ID] [--at TIMESTAMP | --after DURATION] <title>
@@ -153,23 +155,21 @@ async function readStdinMessage() {
 }
 
 function readPort() {
-  const candidates = []
-  if (process.env.XDG_RUNTIME_DIR) {
-    candidates.push(`${process.env.XDG_RUNTIME_DIR}/cc-notify.port`)
-  }
-  candidates.push("/tmp/cc-notify.port")
+  const portPath = join(
+    process.env.XDG_STATE_HOME || join(homedir(), ".local", "state"),
+    "cc-notify",
+    "port",
+  )
 
-  for (const path of candidates) {
-    if (existsSync(path)) {
-      const port = readFileSync(path, "utf8").trim()
-      if (!/^\d+$/.test(port)) {
-        throw new Error(`Invalid port file contents at ${path}: ${JSON.stringify(port)}`)
-      }
-      return Number(port)
-    }
+  if (!existsSync(portPath)) {
+    throw new Error(`Could not find cc-notify port file (${portPath})`)
   }
 
-  throw new Error(`Could not find cc-notify port file (${candidates.join(" or ")})`)
+  const port = readFileSync(portPath, "utf8").trim()
+  if (!/^\d+$/.test(port)) {
+    throw new Error(`Invalid port file contents at ${portPath}: ${JSON.stringify(port)}`)
+  }
+  return Number(port)
 }
 
 try {
