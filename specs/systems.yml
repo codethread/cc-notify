@@ -19,20 +19,3 @@ systems:
       - "src/services/"
     rationale: "Core business logic: Effect.ts HTTP server, timer lifecycle, Pushover integration, port discovery, layer composition"
     notes: "Reverse-specced 2026-04-02. Docs consolidated (overview.md, api-design.md deleted)."
-
-  - id: "002"
-    domain: "claude-code-plugin"
-    aliases:
-      - "plugin"
-      - "hooks"
-      - "scripts"
-    target: "claude code plugin"
-    spec: "specs/claude-code-plugin.md"
-    status: "done"
-    action: "create"
-    code:
-      - ".claude-plugin/"
-      - "hooks/hooks.json"
-      - "scripts/"
-    rationale: "Plugin integration layer: hook scripts, focus tracking, shared lib, plugin manifest and marketplace distribution"
-    notes: "Reverse-specced 2026-04-02. Docs consolidated (focus-tracking.md deleted, CLAUDE.md trimmed)."

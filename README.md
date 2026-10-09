@@ -7,37 +7,7 @@ Local notification filter for AI coding tools. Debounces notifications so you on
 1. An AI tool (e.g. Claude Code) sends a notification request with a session ID
 2. A 60-second timer starts
 3. If activity is detected on that session within 60s, the notification is cancelled
-4. If the terminal pane is focused (or regains focus), the notification is suppressed
-5. If the timer expires with no activity or focus, a push notification is sent via [Pushover](https://pushover.net)
-
-Focus tracking currently supports tmux, with the design open to other terminals. See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for details.
-
-## Claude Code Plugin
-
-This repo doubles as a Claude Code plugin. Once enabled, it automatically hooks into Stop, PermissionRequest, UserPromptSubmit, and SessionEnd events — no manual hook configuration needed.
-
-Add to your `settings.json`:
-
-```json
-{
-  "extraKnownMarketplaces": {
-    "cc-notify-marketplace": {
-      "source": { "source": "github", "repo": "codethread/cc-notify" }
-    }
-  },
-  "enabledPlugins": {
-    "cc-notify@cc-notify-marketplace": true
-  }
-}
-```
-
-For tmux focus tracking, add this to your `tmux.conf`:
-
-```
-set-hook -g pane-focus-in 'run-shell "~/.claude/plugins/data/cc-notify-cc-notify-marketplace/tmux-focus.js"'
-```
-
-See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for how this works.
+4. If the timer expires with no activity, a push notification is sent via [Pushover](https://pushover.net)
 
 ## Server Setup
 

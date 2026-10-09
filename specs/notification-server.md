@@ -19,7 +19,7 @@ Local HTTP server that debounces notifications from AI coding tools. When a tool
 
 ### Non-Goals
 
-- No awareness of terminal focus or pane state — that is the plugin's responsibility
+- No awareness of terminal focus or pane state
 - No notification routing to providers other than Pushover
 - No persistent storage — all state is in-memory (timers lost on restart)
 - No authentication on HTTP endpoints (local-only service)

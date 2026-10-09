@@ -10,13 +10,6 @@ Local notification filter service. Bun + Effect.ts.
 - **Logs**: `.logs/cc-notify.jsonl` (JSONL, append)
 - **Config**: `PUSHOVER_CC_KEY`, `PUSHOVER_DEV_KEY` (env or `.env`)
 
-## Claude Code Plugin
-
-This repo is also a Claude Code plugin. See [specs/claude-code-plugin.md](specs/claude-code-plugin.md) for architecture.
-
-- Hook debug logs: `$XDG_STATE_HOME/cc-notify/debug.log`
-
 ## Docs
 
 - [specs/notification-server.md](specs/notification-server.md) — server architecture, API, services
-- [specs/claude-code-plugin.md](specs/claude-code-plugin.md) — hook scripts, focus tracking, plugin distribution
